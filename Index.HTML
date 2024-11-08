@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Alumnos</title>
+    <style>
+        /* Estilos de la página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #003366;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 10px 0;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #003366;
+            border-radius: 5px;
+            max-width: 300px;
+        }
+        button {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #00509e;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Registro de Alumnos</h1>
+    </header>
+    <main>
+        <form id="registroForm">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingresa el nombre" required>
+
+            <label for="grado">Grado:</label>
+            <input type="text" id="grado" name="grado" placeholder="Ingresa el grado" required>
+
+            <label for="grupo">Grupo:</label>
+            <input type="text" id="grupo" name="grupo" placeholder="Ingresa el grupo" required>
+
+            <label for="matricula">Matrícula:</label>
+            <input type="text" id="matricula" name="matricula" placeholder="Ingresa la matrícula" required>
+
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" placeholder="Ingresa el correo" required>
+
+            <label for="telefono">Número Telefónico:</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="Ingresa el número telefónico" required>
+
+            <button type="submit">Registrar</button>
+            <button type="button" onclick="verLista()">Lista de Registro</button>
+        </form>
+    </main>
+    <script>
+        document.getElementById('registroForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const grado = document.getElementById('grado').value;
+            const grupo = document.getElementById('grupo').value;
+            const matricula = document.getElementById('matricula').value;
+            const email = document.getElementById('email').value;
+            const telefono = document.getElementById('telefono').value;
+            const fechaRegistro = new Date().toLocaleString();
+
+            const alumno = { nombre, grado, grupo, matricula, email, telefono, fechaRegistro };
+
+            const listaRegistro = JSON.parse(localStorage.getItem('listaRegistro')) || [];
+            listaRegistro.push(alumno);
+            localStorage.setItem('listaRegistro', JSON.stringify(listaRegistro));
+
+            alert("Registro realizado correctamente.");
+            this.reset();
+        });
+
+        // Abrir la lista en una nueva ventana
+        function verLista() {
+            window.open('lista.html', '_blank');
+        }
+    </script>
+</body>
+</html>
